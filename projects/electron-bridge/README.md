@@ -27,7 +27,7 @@
 
 ## About The Project
 
-Over the last couple of years many applications started to adopt transparent design language. Unfortunately, in Electron applications, this means you have to use frameless browser window, which means tou loose the application title bar. this project aims to solve this issue by providing high fidelity, cross platform title bar.
+Isolated context bridge library for Electron & Angular applications.
 
 ## Getting Started
 
@@ -41,7 +41,18 @@ npm install ngx-electron-bridge
 
 ## Usage
 
-1. import the module
+1. expose you desired context in the main process
+```ts
+    import { ipcMain } from 'electron';
+    import { ContextBridgeService } from 'ngx-electron-bridge';
+
+    ContextBridgeService.addIpcBridge("myExposedFunction", "my-exposed-function");
+    ipcMain.handle("my-exposed-function", (event, args) => {
+        console.log(args);
+    });
+```
+
+2. invoke the exposed context in your renderer process
 ```ts
 import { Component, Inject } from '@angular/core';
 import { ElectronBridge } from 'ngx-window-bridge';
@@ -52,40 +63,11 @@ import { ElectronBridge } from 'ngx-window-bridge';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  useragent: string;
   constructor(@Inject(ElectronBridge) _electronBridge: any) {
-    _electronBridge.myExposedFunction1();
-    _electronBridge.myExposedFunction2(...args);
+    _electronBridge.myExposedFunction(...args);
   }
 }
 ```
-
-2. add the component to you application html
-```html
-  <ngx-electron-bridge></ngx-electron-bridge>
-  <!-- or with all the options -->
-  <ngx-electron-bridge 
-    [theme]="theme" [os]="os" [title]="title" [draggable]="draggable" [fixed]="fixed"
-    [tall]="tall" [transparent]="transparent" [rtl]="rtl">
-  </ngx-electron-bridge>
-```
-
-## Options
-- **theme:** 'light' | 'dark' (default: 'light')  -  theme style
-- **draggable:** boolean (default: true)        -  enables/disables the -webkit-app-region CSS property on the root element. - Allows frameless windows to be dragged in an electron application
-- **fixed:** boolean (default: false)            -  affixes to the top and floats above the rest of the content so only the - buttons and title are visible. Ignores transparent rule
-- **os:** 'mac' | 'win' | 'default' (default: 'default')  -  bridge style (defaults to current OS, or default if unrecognized)
-- **tall:** boolean (default: false)             -  makes the bridge taller than usual, with the controls slightly inset (mac - only)
-- **title:** string (default: '')           -  app title
-- **transparent:** boolean (default: false)     -  transparent background for an overlay effect
-- **rtl:** boolean (default: false)              -  right to left alignment
-
-## Events
-- **onClose:** close button was clicked
-- **onMinimize:** minimize button was clicked
-- **onMaximize:** maximize button was clicked
-- **onFullScreen:** full screen button was clicked
-
 
 ## Roadmap
 
@@ -114,7 +96,3 @@ Distributed under the Apache 2.0 License. See [LICENSE](https://github.com/benny
 ## Authors
 
 * **[Benny Megidish](https://github.com/bennymeg/)**
-
-## Acknowledgements
-
-* [reese](https://gitlab.com/katacarbix)

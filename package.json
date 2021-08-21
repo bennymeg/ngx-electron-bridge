@@ -1,10 +1,26 @@
 {
   "name": "ngx-electron-bridge",
+  "description": "Isolated context bridge library for Electron & Angular applications",
+  "author": "Benny Megidish",
+  "license": "Apache 2.0",
   "version": "0.0.0",
+  "keywords": [
+    "angular",
+    "electron",
+    "context",
+    "bridge",
+    "isolation"
+  ],
+  "repository": "https://github.com/bennymeg/ngx-electron-bridge",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "serve:lib": "ng serve electron-titlebar",
+    "serve:site": "ng serve",
+    "build:lib": "ng build electron-titlebar --prod",
+    "build:site": "ng build --prod --base-href=/ngx-electron-titlebar/ --output-path=docs",
+    "publish": "cd dist/electron-titlebar && npm publish",
+    "deploy": "ng deploy --base-href=/ngx-electron-titlebar/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

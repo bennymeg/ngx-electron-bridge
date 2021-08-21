@@ -5,7 +5,7 @@ export class ContextBridgeService {
 
   constructor() { }
 
-  addBridge(exposedName: string, ipcName: string): ContextBridgeService {
+  addIpcBridge(exposedName: string, ipcName: string): ContextBridgeService {
     ContextBridgeService.bridge.set(exposedName, (...args) => {
       if (args) {
         return ipcRenderer.invoke(ipcName, ...args);
