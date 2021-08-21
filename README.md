@@ -47,6 +47,8 @@ npm install ngx-electron-bridge
     import { ContextBridgeService } from 'ngx-electron-bridge';
 
     ContextBridgeService.addIpcBridge("myExposedFunction", "my-exposed-function");
+    ContextBridgeService.expose();
+
     ipcMain.handle("my-exposed-function", (event, args) => {
         console.log(args);
     });

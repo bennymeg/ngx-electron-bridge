@@ -5,7 +5,7 @@ export class ContextBridgeService {
 
   constructor() { }
 
-  addIpcBridge(exposedName: string, ipcName: string): ContextBridgeService {
+  static addIpcBridge(exposedName: string, ipcName: string): ContextBridgeService {
     ContextBridgeService.bridge.set(exposedName, (...args) => {
       if (args) {
         return ipcRenderer.invoke(ipcName, ...args);
@@ -17,7 +17,7 @@ export class ContextBridgeService {
     return this;
   }
 
-  expose(): void {
+  static expose(): void {
     contextBridge.exposeInMainWorld('ElectronBridge', ContextBridgeService.bridge);
   }
 }
