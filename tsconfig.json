@@ -5,6 +5,12 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
+    "paths": {
+      "electron-bridge": [
+        "dist/electron-bridge/electron-bridge",
+        "dist/electron-bridge"
+      ]
+    },
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,

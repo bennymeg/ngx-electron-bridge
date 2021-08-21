@@ -122,6 +122,46 @@
           }
         }
       }
+    },
+    "electron-bridge": {
+      "projectType": "library",
+      "root": "projects/electron-bridge",
+      "sourceRoot": "projects/electron-bridge/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/electron-bridge/tsconfig.lib.json",
+            "project": "projects/electron-bridge/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/electron-bridge/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/electron-bridge/src/test.ts",
+            "tsConfig": "projects/electron-bridge/tsconfig.spec.json",
+            "karmaConfig": "projects/electron-bridge/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/electron-bridge/tsconfig.lib.json",
+              "projects/electron-bridge/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-electron-bridge"
