@@ -46,10 +46,10 @@ npm install ngx-electron-bridge
     import { ipcMain } from 'electron';
     import { ContextBridgeService } from 'ngx-electron-bridge';
 
-    ContextBridgeService.addIpcBridge("myExposedFunction", "my-exposed-function");
+    ContextBridgeService.addIpcBridge("myExposedFunctionSignature", "my-exposed-function");
     ContextBridgeService.expose();
 
-    ipcMain.handle("my-exposed-function", (event, args) => {
+    ipcMain.handle("my-exposed-function", (event, ...args) => {
         console.log(args);
     });
 ```
@@ -66,7 +66,7 @@ import { ElectronBridge } from 'ngx-window-bridge';
 })
 export class AppComponent {
   constructor(@Inject(ElectronBridge) _electronBridge: any) {
-    _electronBridge.myExposedFunction(...args);
+    _electronBridge.myExposedFunctionSignature(...args);
   }
 }
 ```
