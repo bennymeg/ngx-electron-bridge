@@ -41,7 +41,7 @@ npm install ngx-electron-bridge
 
 ## Usage
 
-1. expose you desired context in the main process
+1. expose you desired context in the main process preload script
 ```ts
     import { ipcMain } from 'electron';
     import { ContextBridgeService } from 'ngx-electron-bridge';
