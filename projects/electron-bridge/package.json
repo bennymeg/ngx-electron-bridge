@@ -11,6 +11,9 @@
     "bridge",
     "isolation"
   ],
+  "browser": {
+    "electron": false
+  },
   "repository": "https://github.com/bennymeg/ngx-electron-bridge",
   "peerDependencies": {
     "@angular/common": "^11.2.14",
