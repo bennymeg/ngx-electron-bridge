@@ -41,7 +41,7 @@ npm install ngx-electron-bridge
 
 ## Usage
 
-1. expose you desired context in the main process preload script
+1. Expose you desired context in the main process preload script
 ```ts
     import { ipcMain } from 'electron';
     import { ContextBridgeService } from 'ngx-electron-bridge';
@@ -54,10 +54,10 @@ npm install ngx-electron-bridge
     });
 ```
 
-2. invoke the exposed context in your renderer process
+2. Invoke the exposed context in your renderer process
 ```ts
 import { Component, Inject } from '@angular/core';
-import { ElectronBridge } from 'ngx-window-bridge';
+import { ElectronBridge } from 'ngx-electron-bridge';
 
 @Component({
   selector: 'app-root',
