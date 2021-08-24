@@ -18,6 +18,13 @@ export class ContextBridgeService {
   }
 
   static expose(): void {
-    contextBridge.exposeInMainWorld('ElectronBridge', ContextBridgeService.bridge);
+    const bridgeObject: any = {};
+
+    for (const item of [...ContextBridgeService.bridge]) {
+      const [key, value] = item;
+      bridgeObject[key] = value;
+    }
+
+    contextBridge.exposeInMainWorld('ElectronBridge', bridgeObject);
   }
 }
