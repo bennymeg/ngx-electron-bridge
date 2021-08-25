@@ -3,13 +3,14 @@
   "description": "Isolated context bridge library for Electron & Angular applications",
   "author": "Benny Megidish",
   "license": "Apache 2.0",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "keywords": [
     "angular",
     "electron",
-    "context",
     "bridge",
-    "isolation"
+    "context",
+    "isolation",
+    "security"
   ],
   "browser": {
     "electron": false

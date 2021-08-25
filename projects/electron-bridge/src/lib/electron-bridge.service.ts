@@ -1,7 +1,10 @@
 import { contextBridge, ipcRenderer } from 'electron';
 
 export class ContextBridgeService {
-  static bridge: Map<string, () => Promise<any>> = new Map();
+  static bridge: Map<string, () => Promise<any>> = new Map([
+    [ "platform", platformBridge ],
+    [ "arch", arcBridge ]
+  ]);
 
   constructor() { }
 
@@ -27,4 +30,14 @@ export class ContextBridgeService {
 
     contextBridge.exposeInMainWorld('ElectronBridge', bridgeObject);
   }
+}
+
+// private helper function that are exported as a hack solution
+
+export function platformBridge(): Promise<string> {
+  return Promise.resolve(process.platform);
+}
+
+export function arcBridge(): Promise<string> {
+  return Promise.resolve(process.arch);
 }

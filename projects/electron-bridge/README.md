@@ -72,6 +72,10 @@ export class AppComponent {
 }
 ```
 
+## Default bridges
+- **platform()**: returns a promise of the platform name.
+- **arch()**: returns a promise of the system architecture.
+
 ## Roadmap
 
 See the [open issues](https://github.com/bennymeg/ngx-electron-bridge/issues) for a list of proposed features (and known issues).
