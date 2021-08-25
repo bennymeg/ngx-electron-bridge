@@ -10,17 +10,18 @@
     Custom bridge library for Electron & Angular applications
     <br/>
     <br/>
-    <a href="https://github.com/bennymeg/ngx-electron-bridge"><strong>Explore the docs »</strong></a>
-    <br/>
-    <br/>
-    <a href="https://bennymeg.github.io/ngx-electron-bridge/">View Demo</a>
-    .
     <a href="https://github.com/bennymeg/ngx-electron-bridge/issues">Report Bug</a>
     .
     <a href="https://github.com/bennymeg/ngx-electron-bridge/issues">Request Feature</a>
   </p>
 
+  <br/>
+  <div align="center">
+
   ![License](https://img.shields.io/github/license/bennymeg/ngx-electron-bridge)
+  ![NPM](https://img.shields.io/npm/v/ngx-electron-bridge)
+  
+  </div>
 </p>
 
 <hr>
@@ -41,31 +42,31 @@ npm install ngx-electron-bridge
 
 ## Usage
 
-1. Expose you desired context in the main process preload script
+1. Expose you desired context - _[main process - preload script]_ 
 ```ts
-    import { ipcMain } from 'electron';
     import { ContextBridgeService } from 'ngx-electron-bridge';
 
     ContextBridgeService.addIpcBridge("myExposedFunctionSignature", "my-exposed-function");
     ContextBridgeService.expose();
+```
+
+2. Handle IPC call (in case of IPC execution) - _[main process]_
+```ts
+    import { ipcMain } from 'electron';
 
     ipcMain.handle("my-exposed-function", (event, ...args) => {
         console.log(args);
     });
 ```
 
-2. Invoke the exposed context in your renderer process
+3. Invoke the exposed context - _[renderer process]_
 ```ts
 import { Component, Inject } from '@angular/core';
 import { ElectronBridge } from 'ngx-electron-bridge';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
+@Component({...})
 export class AppComponent {
-  constructor(@Inject(ElectronBridge) _electronBridge: any) {
+  constructor(@Inject(ElectronBridge) private _electronBridge: any) {
     _electronBridge.myExposedFunctionSignature(...args);
   }
 }
