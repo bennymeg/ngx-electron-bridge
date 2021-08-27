@@ -7,6 +7,8 @@ export const ElectronBridge = new InjectionToken<Window | undefined>(
     : { providedIn: 'root', factory: () => undefined }
 );
 
-export const isElectronApp: boolean = !!window.navigator.userAgent.match(/Electron/);
+export const isElectronApp: boolean = 
+  typeof window !== 'undefined' && !!window.navigator.userAgent.match(/Electron/);
 
-export const isBridgeExposed: boolean = typeof window !== 'undefined' && window['ElectronBridge'] !== undefined;
+export const isBridgeExposed: boolean = 
+  typeof window !== 'undefined' && typeof window !== 'undefined' && window['ElectronBridge'] !== undefined;
