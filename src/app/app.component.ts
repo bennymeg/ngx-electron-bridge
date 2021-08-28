@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { ElectronBridge } from 'projects/electron-bridge/src/lib/electron-bridge.token';
+import { ElectronBridge, ElectronBridgeFactory } from 'projects/electron-bridge/src/lib/electron-bridge.token';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +7,10 @@ import { ElectronBridge } from 'projects/electron-bridge/src/lib/electron-bridge
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(@Inject(ElectronBridge) _electronBridge: any) {
+  // constructor(@Inject(ElectronBridge) _electronBridge: any) {
+  constructor(@Inject(ElectronBridgeFactory()) private _electronBridge: any) {
     // _electronBridge.myExposedFunction();
+    console.log(_electronBridge);
   }
 
   title = 'ngx-electron-bridge';

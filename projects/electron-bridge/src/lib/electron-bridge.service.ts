@@ -20,7 +20,7 @@ export class ContextBridgeService {
     return this;
   }
 
-  static expose(): void {
+  static expose(scope: string = 'ElectronBridge'): void {
     const bridgeObject: any = {};
 
     for (const item of [...ContextBridgeService.bridge]) {
@@ -28,7 +28,7 @@ export class ContextBridgeService {
       bridgeObject[key] = value;
     }
 
-    contextBridge.exposeInMainWorld('ElectronBridge', bridgeObject);
+    contextBridge.exposeInMainWorld(scope, bridgeObject);
   }
 }
 
