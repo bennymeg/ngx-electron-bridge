@@ -1,34 +1,46 @@
 import { contextBridge, ipcRenderer } from 'electron';
 
 export class ContextBridgeService {
-  static bridge: Map<string, () => Promise<any>> = new Map([
+  exposed: boolean = false;
+  bridges: Map<string, () => Promise<any>> = new Map([
     [ "platform", platformBridge ],
     [ "arch", arcBridge ]
   ]);
 
   constructor() { }
 
-  static addIpcBridge(exposedName: string, ipcName: string): ContextBridgeService {
-    ContextBridgeService.bridge.set(exposedName, (...args) => {
+  addIpcBridge(exposedName: string, ipcName: string): ContextBridgeService {
+    this.assertNegativeExposure('Adding new bridge after exposing the context is not allowed');
+
+    this.bridges.set(exposedName, (...args) => {
       if (args) {
         return ipcRenderer.invoke(ipcName, ...args);
       } else {
         return ipcRenderer.invoke(ipcName);
       }
-    });   
+    });
 
     return this;
   }
 
-  static expose(scope: string = 'ElectronBridge'): void {
+  expose(scope: string = 'ElectronBridge'): ContextBridgeService {
+    this.assertNegativeExposure('Context bridge can be exposed only once');
+
     const bridgeObject: any = {};
 
-    for (const item of [...ContextBridgeService.bridge]) {
+    for (const item of [...this.bridges]) {
       const [key, value] = item;
       bridgeObject[key] = value;
     }
 
     contextBridge.exposeInMainWorld(scope, bridgeObject);
+    this.exposed = true;
+
+    return this
+  }
+
+  private assertNegativeExposure(errorMessage: string) {
+    if (this.exposed) throw new Error(errorMessage);
   }
 }
 

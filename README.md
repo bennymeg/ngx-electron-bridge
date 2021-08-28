@@ -46,8 +46,10 @@ npm install ngx-electron-bridge
 ```ts
     import { ContextBridgeService } from 'ngx-electron-bridge';
 
-    ContextBridgeService.addIpcBridge("myExposedFunctionSignature", "my-exposed-function");
-    ContextBridgeService.expose();
+    const ContextBridgeService = new ContextBridgeService()
+      .addIpcBridge("myExposedFunctionSignature", "my-exposed-function")
+      .addIpcBridge("anotherExposedFunctionSignature", "another-exposed-function")
+      .expose();
 ```
 
 2. Handle IPC call (in case of IPC execution) - _[main process]_
