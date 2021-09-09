@@ -18,8 +18,8 @@
   <br/>
   <div align="center">
 
-  ![License](https://img.shields.io/github/license/bennymeg/ngx-electron-bridge)
-  ![NPM](https://img.shields.io/npm/v/ngx-electron-bridge)
+  [![licence](https://img.shields.io/github/license/bennymeg/ngx-electron-bridge.svg)](https://github.com/bennymeg/ngx-electron-bridge/blob/master/LICENSE)
+  [![npm version](https://img.shields.io/npm/v/ngx-electron-bridge.svg)](https://www.npmjs.com/package/ngx-electron-bridge)
   
   </div>
 </p>
