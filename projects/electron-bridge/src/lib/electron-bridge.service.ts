@@ -2,7 +2,7 @@ import { contextBridge, ipcRenderer } from 'electron';
 
 export class ContextBridgeService {
   exposed: boolean = false;
-  bridges: Map<string, () => Promise<any>> = new Map([
+  bridges: Map<string, (...args) => Promise<any>> = new Map([
     [ "platform", platformBridge ],
     [ "arch", arcBridge ]
   ]);
@@ -18,6 +18,18 @@ export class ContextBridgeService {
       } else {
         return ipcRenderer.invoke(ipcName);
       }
+    });
+
+    return this;
+  }
+
+  addIpcEvent(exposedName: string, eventName: string): ContextBridgeService {
+    this.assertNegativeExposure('Adding new bridge after exposing the context is not allowed');
+
+    this.bridges.set(exposedName, (callback) => {
+      ipcRenderer.on(eventName, callback);
+
+      return Promise.resolve();
     });
 
     return this;
